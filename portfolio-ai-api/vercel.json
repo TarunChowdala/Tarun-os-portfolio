@@ -4,25 +4,10 @@
   "regions": ["iad1"],
   "functions": {
     "api/chat.ts": {
-      "memory": 1024,
       "maxDuration": 30
     },
     "api/github/stats.ts": {
-      "memory": 1024,
       "maxDuration": 30
     }
-  },
-  "headers": [
-    {
-      "source": "/api/(.*)",
-      "headers": [
-        { "key": "Access-Control-Allow-Credentials", "value": "true" },
-        { "key": "Access-Control-Allow-Methods", "value": "GET,OPTIONS,POST" },
-        {
-          "key": "Access-Control-Allow-Headers",
-          "value": "Content-Type, Authorization"
-        }
-      ]
-    }
-  ]
+  }
 }
