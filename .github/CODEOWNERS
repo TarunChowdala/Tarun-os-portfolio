@@ -1,0 +1,13 @@
+# CODEOWNERS — https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+# Reviews are requested from these users when matching paths change.
+
+*                         @TarunChowdala
+
+# Portfolio chatbot API
+/portfolio-ai-api/         @TarunChowdala
+/portfolio-ai-api/**      @TarunChowdala
+
+# Frontend chat + site data
+/src/components/ai/       @TarunChowdala
+/src/lib/chatApi.ts       @TarunChowdala
+/src/data/site.ts         @TarunChowdala
