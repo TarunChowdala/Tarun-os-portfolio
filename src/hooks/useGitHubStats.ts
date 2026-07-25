@@ -22,6 +22,12 @@ interface State {
   error: string | null
 }
 
+function githubStatsUrl(): string {
+  const base = (import.meta.env.VITE_CHAT_API_URL as string | undefined)?.replace(/\/$/, '')
+  // Prod: portfolio-ai-api. Local vite middleware still serves /api/github/stats.
+  return base ? `${base}/api/github/stats` : '/api/github/stats'
+}
+
 export function useGitHubStats() {
   const [state, setState] = useState<State>({
     stats: null,
@@ -34,7 +40,7 @@ export function useGitHubStats() {
 
     async function load() {
       try {
-        const res = await fetch('/api/github/stats')
+        const res = await fetch(githubStatsUrl())
         if (!res.ok) {
           const body = (await res.json().catch(() => null)) as { error?: string } | null
           throw new Error(body?.error ?? `HTTP ${res.status}`)

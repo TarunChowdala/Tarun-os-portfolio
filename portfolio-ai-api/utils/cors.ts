@@ -29,7 +29,7 @@ export function resolveCorsOrigin(requestOrigin: string | undefined): string | n
 export function corsHeaders(requestOrigin: string | undefined): Record<string, string> {
   const origin = resolveCorsOrigin(requestOrigin)
   const headers: Record<string, string> = {
-    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     'Access-Control-Max-Age': '86400',
     Vary: 'Origin',
