@@ -184,7 +184,7 @@ export function ChatPanel({ compact = false }: { compact?: boolean }) {
             <button
               key={s.cmd}
               type="button"
-              onClick={() => void send(s.label)}
+              onClick={() => void send(s.label, { preset: s.cmd })}
               className="cursor-pointer rounded border border-white/[0.08] bg-white/[0.03] px-2 py-1 font-[family-name:var(--font-mono)] text-[10px] text-[var(--color-muted)] transition-colors hover:border-[var(--color-accent)]/40 hover:text-[var(--color-accent)]"
             >
               ./{s.cmd}

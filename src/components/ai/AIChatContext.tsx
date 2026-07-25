@@ -22,7 +22,8 @@ interface AIChatContextValue {
   openChat: () => void
   messages: ChatMessage[]
   isTyping: boolean
-  send: (content: string) => Promise<void>
+  /** Chip presets skip the LLM and use static portfolio copy. */
+  send: (content: string, opts?: { preset?: string }) => Promise<void>
   live: boolean
 }
 
@@ -32,7 +33,7 @@ function mockReply(input: string): string {
   const q = input.toLowerCase()
   if (q.includes('project')) return AI_MOCK_REPLIES.projects
   if (q.includes('skill') || q.includes('stack') || q.includes('tech'))
-    return AI_MOCK_REPLIES.skills
+    return AI_MOCK_REPLIES.stack
   if (q.includes('contact') || q.includes('email') || q.includes('hire') || q.includes('phone'))
     return AI_MOCK_REPLIES.contact
   if (q.includes('architect') || q.includes('system'))
@@ -46,6 +47,12 @@ function mockReply(input: string): string {
   )
     return AI_MOCK_REPLIES.experience
   return AI_MOCK_REPLIES.default
+}
+
+function presetReply(preset: string): string | null {
+  const key = preset.trim().toLowerCase()
+  if (key === 'skills') return AI_MOCK_REPLIES.stack
+  return AI_MOCK_REPLIES[key] ?? null
 }
 
 const WELCOME: ChatMessage = {
@@ -72,7 +79,7 @@ export function AIChatProvider({ children }: { children: ReactNode }) {
   const openChat = useCallback(() => setOpen(true), [])
 
   const send = useCallback(
-    async (content: string) => {
+    async (content: string, opts?: { preset?: string }) => {
       const trimmed = content.trim()
       if (!trimmed) return
 
@@ -92,7 +99,13 @@ export function AIChatProvider({ children }: { children: ReactNode }) {
 
       try {
         let replyText: string
-        if (live) {
+        const canned = opts?.preset ? presetReply(opts.preset) : null
+
+        if (canned) {
+          // Suggestion chips → static copy, zero LLM cost
+          await new Promise((r) => setTimeout(r, 180 + Math.random() * 120))
+          replyText = canned
+        } else if (live) {
           replyText = await fetchChatReply(thread)
         } else {
           await new Promise((r) => setTimeout(r, 500 + Math.random() * 300))

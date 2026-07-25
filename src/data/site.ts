@@ -524,18 +524,20 @@ export const SOCIALS: SocialLink[] = [
   { id: 'resume', label: 'Resume', href: '/resume.pdf' },
 ]
 
-/** Mock replies until FastAPI + LangChain are wired. */
+/** Static chip replies — no LLM. Keys match ChatPanel suggestion cmds. */
 export const AI_MOCK_REPLIES: Record<string, string> = {
   default:
-    "I'm Tarun Chowdala's portfolio assistant (mock mode). Ask about ContactSwing, Scoutn, SmartChat, Madvira, or his React/FastAPI/GenAI stack.",
+    "I'm Tarun Chowdala's portfolio assistant. Ask about ContactSwing, Scoutn, SmartChat, Madvira, or his React/FastAPI/GenAI stack — or type a custom question.",
   projects:
-    'Key work: ContactSwing (Swara Tech), Scoutn (live search agent), SmartChat AI (Gemini chat/RAG/resume — smartchataiapp.vercel.app), Madvira fashion store (madvira.com).',
+    'Highlights worth opening:\n\n- **ContactSwing** — AI SaaS at Swara Tech (React + FastAPI/Node, production)\n- **Scoutn** — live agentic search ([scoutn.streamlit.app](https://scoutn.streamlit.app))\n- **SmartChat AI** — Gemini chat / RAG / resume ([smartchataiapp.vercel.app](https://smartchataiapp.vercel.app))\n- **Madvira** — fashion storefront ([madvira.com](https://madvira.com))\n\nScroll to **Projects** for demos and architecture tabs.',
   skills:
-    'Stack: React.js, TypeScript, FastAPI, Node.js, PostgreSQL, Redis, LangChain/LangGraph, FAISS, Docker, GCP. Explore the Skills graph for relationships.',
+    'Core stack:\n\n- **Frontend:** React.js, TypeScript, Tailwind\n- **Backend:** FastAPI, Node.js/Express\n- **Data:** PostgreSQL, Redis, MongoDB\n- **AI:** LangChain, LangGraph, FAISS, Gemini/Groq\n- **Ops:** Docker, GCP\n\nThe **Skills** graph on the site maps how these connect.',
+  stack:
+    'Core stack:\n\n- **Frontend:** React.js, TypeScript, Tailwind\n- **Backend:** FastAPI, Node.js/Express\n- **Data:** PostgreSQL, Redis, MongoDB\n- **AI:** LangChain, LangGraph, FAISS, Gemini/Groq\n- **Ops:** Docker, GCP\n\nThe **Skills** graph on the site maps how these connect.',
   contact:
-    'Email tarunchowdala300@gmail.com or call +91 7989685788 · based in Srikakulam, AP. Social links are in Contact.',
+    'Reach Tarun directly:\n\n- **Email:** [tarunchowdala300@gmail.com](mailto:tarunchowdala300@gmail.com)\n- **Phone:** +91 7989685788\n- **Location:** Srikakulam, Andhra Pradesh\n- **GitHub / LinkedIn:** links in the Contact section\n\nOpen to full-time roles and freelance.',
   architecture:
-    'Architecture tabs: SmartChat (React→FastAPI→Firebase/Gemini/FAISS), Scoutn (Streamlit→LangGraph→Groq), Madvira (React→Node→Mongo + Razorpay/Shiprocket).',
+    'System shapes by product:\n\n- **SmartChat** — React → FastAPI → Firebase / Gemini / FAISS\n- **Scoutn** — Streamlit → LangGraph → Groq\n- **Madvira** — React → Node → Mongo + Razorpay / Shiprocket\n\nOpen a project’s **Architecture** tab for the live diagram.',
   experience:
-    '2+ years building production web apps. Previously Full Stack at Swara Tech on ContactSwing (Sep 2024–2025) and Frontend Intern at Instedia (May–Jun 2024). Now open to full-time roles and freelance.',
+    '2+ years shipping production web apps.\n\n- **Swara Tech** — Full Stack on ContactSwing (Sep 2024–2025)\n- **Instedia** — Frontend Intern (May–Jun 2024)\n\nNow open to full-time roles and freelance.',
 }
