@@ -1,6 +1,6 @@
 import { GoogleGenAI, type Content } from '@google/genai'
-import { buildSystemInstruction } from './portfolio-context'
-import type { ChatMessageInput } from '../utils/validation'
+import { buildSystemInstruction } from './portfolio-context.js'
+import type { ChatMessageInput } from '../utils/validation.js'
 
 const DEFAULT_MODEL = 'gemini-2.5-flash'
 

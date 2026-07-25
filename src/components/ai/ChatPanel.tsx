@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import Markdown from 'react-markdown'
 import { useAIChatLauncher } from '@/components/ai/AIChatContext'
-import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 import { cn } from '@/lib/utils'
 import type { ChatMessage } from '@/types'
 
@@ -12,36 +12,69 @@ const SUGGESTIONS = [
   { cmd: 'contact', label: 'How can I contact you?' },
 ] as const
 
-function TypedText({ text, animate }: { text: string; animate: boolean }) {
-  const reduced = usePrefersReducedMotion()
-  const [shown, setShown] = useState(animate && !reduced ? '' : text)
-
-  useEffect(() => {
-    if (!animate || reduced) {
-      setShown(text)
-      return
-    }
-    setShown('')
-    let i = 0
-    const id = window.setInterval(() => {
-      i += 1
-      setShown(text.slice(0, i))
-      if (i >= text.length) clearInterval(id)
-    }, 12)
-    return () => clearInterval(id)
-  }, [text, animate, reduced])
-
+function AgentMarkdown({ content }: { content: string }) {
   return (
-    <>
-      {shown}
-      {animate && shown.length < text.length ? (
-        <span className="ml-0.5 inline-block h-3.5 w-[2px] translate-y-[2px] animate-pulse bg-[var(--color-accent)]" />
-      ) : null}
-    </>
+    <Markdown
+      components={{
+        p: ({ children }) => (
+          <p className="mb-2.5 last:mb-0 text-[var(--color-fg-secondary)]">{children}</p>
+        ),
+        strong: ({ children }) => (
+          <strong className="font-semibold text-[var(--color-fg)]">{children}</strong>
+        ),
+        em: ({ children }) => (
+          <em className="italic text-[var(--color-fg-secondary)]">{children}</em>
+        ),
+        ul: ({ children }) => (
+          <ul className="mb-2.5 space-y-1.5 last:mb-0 [&>li]:relative [&>li]:pl-4 [&>li]:before:absolute [&>li]:before:left-0 [&>li]:before:text-[var(--color-accent)] [&>li]:before:content-['▸'] [&>li>p]:mb-0">
+            {children}
+          </ul>
+        ),
+        ol: ({ children }) => (
+          <ol className="mb-2.5 list-decimal space-y-1.5 pl-5 last:mb-0 marker:text-[var(--color-accent)] [&>li>p]:mb-0">
+            {children}
+          </ol>
+        ),
+        li: ({ children }) => (
+          <li className="text-[var(--color-fg-secondary)]">{children}</li>
+        ),
+        a: ({ href, children }) => (
+          <a
+            href={href}
+            target="_blank"
+            rel="noreferrer"
+            className="text-[var(--color-accent)] underline decoration-[var(--color-accent)]/35 underline-offset-2 transition-colors hover:decoration-[var(--color-accent)]"
+          >
+            {children}
+          </a>
+        ),
+        h1: ({ children }) => (
+          <p className="mb-2 font-semibold text-[var(--color-fg)]">{children}</p>
+        ),
+        h2: ({ children }) => (
+          <p className="mb-2 font-semibold text-[var(--color-fg)]">{children}</p>
+        ),
+        h3: ({ children }) => (
+          <p className="mb-1.5 font-semibold text-[var(--color-fg)]">{children}</p>
+        ),
+        code: ({ children }) => (
+          <code className="rounded bg-white/[0.06] px-1 py-0.5 text-[11px] text-[var(--color-accent)]">
+            {children}
+          </code>
+        ),
+        pre: ({ children }) => (
+          <pre className="mb-2.5 overflow-x-auto rounded border border-white/[0.08] bg-black/40 px-3 py-2 text-[11px] last:mb-0">
+            {children}
+          </pre>
+        ),
+      }}
+    >
+      {content}
+    </Markdown>
   )
 }
 
-function TerminalLine({ msg, typewrite }: { msg: ChatMessage; typewrite: boolean }) {
+function TerminalLine({ msg }: { msg: ChatMessage }) {
   const isUser = msg.role === 'user'
 
   return (
@@ -60,13 +93,11 @@ function TerminalLine({ msg, typewrite }: { msg: ChatMessage; typewrite: boolean
           {msg.content}
         </p>
       ) : (
-        <div className="text-[var(--color-fg-secondary)]">
-          <p className="mb-1 text-[10px] uppercase tracking-[0.14em] text-[var(--color-accent)]">
+        <div>
+          <p className="mb-1.5 text-[10px] uppercase tracking-[0.14em] text-[var(--color-accent)]">
             agent ▸
           </p>
-          <p className="whitespace-pre-wrap">
-            {typewrite ? <TypedText text={msg.content} animate /> : msg.content}
-          </p>
+          <AgentMarkdown content={msg.content} />
         </div>
       )}
     </motion.div>
@@ -77,31 +108,13 @@ function TerminalLine({ msg, typewrite }: { msg: ChatMessage; typewrite: boolean
 export function ChatPanel({ compact = false }: { compact?: boolean }) {
   const { messages, isTyping, send, live } = useAIChatLauncher()
   const [input, setInput] = useState('')
-  const [typedIds, setTypedIds] = useState<Set<string>>(() => new Set(['welcome']))
   const bottomRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
-  const prevCount = useRef(messages.length)
   const inputId = compact ? 'ai-modal-input' : 'ai-input'
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
   }, [messages, isTyping])
-
-  useEffect(() => {
-    if (messages.length > prevCount.current) {
-      const last = messages[messages.length - 1]
-      if (last?.role === 'assistant') {
-        setTypedIds((prev) => {
-          const next = new Set(prev)
-          messages.slice(0, -1).forEach((m) => {
-            if (m.role === 'assistant') next.add(m.id)
-          })
-          return next
-        })
-      }
-    }
-    prevCount.current = messages.length
-  }, [messages])
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault()
@@ -144,11 +157,9 @@ export function ChatPanel({ compact = false }: { compact?: boolean }) {
           Last login: {new Date().toLocaleString()} on ttys001
         </p>
 
-        {messages.map((msg, idx) => {
-          const isLastAssistant =
-            msg.role === 'assistant' && idx === messages.length - 1 && !typedIds.has(msg.id)
-          return <TerminalLine key={msg.id} msg={msg} typewrite={isLastAssistant} />
-        })}
+        {messages.map((msg) => (
+          <TerminalLine key={msg.id} msg={msg} />
+        ))}
 
         <AnimatePresence>
           {isTyping ? (

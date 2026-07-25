@@ -61,6 +61,8 @@ npx vercel dev
 # → http://localhost:3000/api/chat
 ```
 
+Do **not** put `vercel dev` in the `package.json` `dev` script — Vercel will recurse and crash.
+
 ### Deploy
 
 ```bash

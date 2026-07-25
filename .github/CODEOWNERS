@@ -3,11 +3,9 @@
 
 *                         @TarunChowdala
 
-# Portfolio chatbot API
-/portfolio-ai-api/         @TarunChowdala
-/portfolio-ai-api/**      @TarunChowdala
-
 # Frontend chat + site data
 /src/components/ai/       @TarunChowdala
 /src/lib/chatApi.ts       @TarunChowdala
 /src/data/site.ts         @TarunChowdala
+
+# Note: chat API lives at ~/projects/portfolio-ai-api (separate deploy; path has no spaces)

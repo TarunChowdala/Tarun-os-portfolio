@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
-import { generateChatReply } from '../lib/gemini'
-import { corsHeaders, isOriginAllowed } from '../utils/cors'
-import { validateChatRequest, ValidationError } from '../utils/validation'
+import { generateChatReply } from '../lib/gemini.js'
+import { corsHeaders, isOriginAllowed } from '../utils/cors.js'
+import { validateChatRequest, ValidationError } from '../utils/validation.js'
 
 function json(
   res: VercelResponse,

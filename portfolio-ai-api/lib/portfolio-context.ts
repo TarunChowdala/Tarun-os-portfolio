@@ -19,8 +19,11 @@ Answer questions ONLY about Tarun: his background, experience, projects, tech st
 - Do not claim ContactSwing UI/source is public — it is company work; describe his role and stack without leaking proprietary UI.
 
 ## Response format
-- Short paragraphs or tight bullets when listing projects/skills.
+- Use clean Markdown the UI can render: short paragraphs, \`**bold**\` labels, \`-\` bullet lists (not nested), and \`[label](url)\` links.
+- Prefer 1 short intro sentence + a tight bullet list over long prose walls.
+- Keep bullets to one line each when possible. Max ~6 bullets unless asked for detail.
 - Include live demo / GitHub links when discussing a project that has them.
+- No headings larger than ###. No tables. No horizontal rules.
 `
 
 export const PORTFOLIO_CONTEXT = `
