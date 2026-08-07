@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import {
+  Briefcase,
   FolderGit2,
   Home,
   LayoutGrid,
@@ -9,7 +10,6 @@ import {
   Mail,
   type LucideIcon,
 } from 'lucide-react'
-import { SITE } from '@/data/site'
 import { cn, scrollToId } from '@/lib/utils'
 import { useScrollProgress } from '@/hooks/useScrollProgress'
 import { useAIChatLauncher } from '@/components/ai/AIChatContext'
@@ -28,6 +28,7 @@ const APPS: {
   { id: 'about', label: 'About', icon: User },
   { id: 'skills', label: 'Skills', icon: Terminal },
   { id: 'projects', label: 'Projects', icon: LayoutGrid },
+  { id: 'freelance', label: 'Freelance', icon: Briefcase },
   { id: 'github', label: 'GitHub', icon: FolderGit2 },
   { id: 'contact', label: 'Contact', icon: Mail },
 ]
@@ -59,26 +60,6 @@ export function Taskbar({ activeId, visible }: TaskbarProps) {
                 style={{ scaleX: progress }}
               />
             </div>
-
-            <button
-              type="button"
-              onClick={() => scrollToId('hero')}
-              className="mr-0.5 flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl ring-1 ring-white/10 transition-opacity hover:opacity-90 sm:h-12 sm:w-12"
-              title={SITE.product}
-            >
-              <img
-                src={SITE.avatarUrl}
-                alt={SITE.name}
-                width={48}
-                height={48}
-                className="h-full w-full object-cover object-top"
-              />
-            </button>
-
-            <span
-              className="mx-0.5 hidden h-8 w-px shrink-0 bg-white/[0.08] sm:block"
-              aria-hidden
-            />
 
             <ul className="flex shrink-0 items-end gap-0 sm:gap-1">
               {APPS.map((app) => {

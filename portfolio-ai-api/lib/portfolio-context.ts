@@ -112,10 +112,20 @@ Rough experience signal: 2+ years building production web apps. Previously Full 
 - Architecture: React + Node/Express REST + MongoDB; Razorpay + Shiprocket webhooks; OTP via SMTP + Fast2SMS; Docker on Hostinger VPS.
 - Tech: React.js, Node.js, Express.js, MongoDB, Docker, Razorpay, Shiprocket
 
+### 5) Tarun AI OS (featured) — this portfolio
+- Live: https://my-portfolio-tarun.vercel.app/
+- GitHub: https://github.com/TarunChowdala/Tarun-os-portfolio
+- Tagline: Desktop-inspired developer portfolio with a Gemini-backed “Talk to AI” chat.
+- Overview: Vite + React + TypeScript + Tailwind portfolio (taskbar, skill graph, project panels). Separate Vercel serverless API for chat (Gemini + portfolio KB) and live GitHub stats. Visitors are already on this product when chatting.
+- Architecture: React/Vite frontend → portfolio-ai-api (/api/chat, /api/github/stats) → Gemini + GitHub API; CORS locked to portfolio origins.
+- Tech: React.js, TypeScript, Vite, Tailwind CSS, Framer Motion, Gemini, Vercel
+- Also referred to as: this portfolio, Tarun OS, portfolio site, AI OS.
+
 ## Architecture summaries (public graphs on portfolio)
 - SmartChat: React → FastAPI → Firebase/Firestore/Gemini/FAISS/Playwright
 - Scoutn: Streamlit → LangChain create_agent + Groq → Serper/Wikipedia/YouTube + MemorySaver
 - Madvira: React → Node/Express → Mongo + Razorpay/Shiprocket/OTP
+- Tarun AI OS: React/Vite → Vercel serverless → Gemini chat + GitHub stats
 - ContactSwing architecture details are limited publicly (company IP).
 
 ## How visitors should contact / hire

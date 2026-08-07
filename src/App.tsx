@@ -10,6 +10,7 @@ import { AIChatProvider, useAIChatLauncher } from '@/components/ai/AIChatContext
 import { AIChatWidget } from '@/components/ai/AIChatWidget'
 import { Skills } from '@/components/skills/Skills'
 import { Projects } from '@/components/projects/Projects'
+import { Freelance } from '@/components/freelance/Freelance'
 import { Architecture } from '@/components/architecture/Architecture'
 import { Timeline } from '@/components/timeline/Timeline'
 import { GitHubDashboard } from '@/components/github/GitHubDashboard'
@@ -72,6 +73,7 @@ function AppShell() {
             {/* <AIAssistant /> */}
             <Skills />
             <Projects />
+            <Freelance />
             <Architecture />
             <Timeline />
             <GitHubDashboard />

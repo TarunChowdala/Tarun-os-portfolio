@@ -37,6 +37,7 @@ export const NAV_ITEMS: NavItem[] = [
   { id: 'about', label: 'About' },
   { id: 'skills', label: 'Skills' },
   { id: 'projects', label: 'Projects' },
+  { id: 'freelance', label: 'Freelance' },
   { id: 'github', label: 'GitHub' },
   { id: 'contact', label: 'Contact' },
 ]
@@ -47,6 +48,7 @@ export const SECTION_IDS = [
   'about',
   'skills',
   'projects',
+  'freelance',
   'architecture',
   'timeline',
   'github',
@@ -283,8 +285,8 @@ export const PROJECTS: Project[] = [
       'Background automation with queues and Cloud Tasks without UX lag',
     ],
     githubUrl: 'https://github.com',
-    coverGradient: 'linear-gradient(145deg, #1a2332 0%, #0d1118 50%, #15202b 100%)',
-    coverImage: '/projects/contactswing.svg',
+    coverGradient:
+      'linear-gradient(145deg, #0e1620 0%, #152536 42%, #1a3a52 72%, #0d1118 100%)',
     featured: true,
   },
   {
@@ -346,9 +348,9 @@ export const PROJECTS: Project[] = [
   {
     id: 'madivra',
     title: 'Madvira',
-    tagline: 'Premium fashion e-commerce — storefront, payments & shipping.',
+    tagline: 'Freelance fashion e-commerce — storefront, payments & shipping.',
     overview:
-      'Live fashion store (madvira.com) with collection browsing, cart, OTP auth, Razorpay checkout, and Shiprocket fulfillment. React storefront + Node/Express APIs on MongoDB, Dockerized on VPS.',
+      'Freelance full-stack build: live fashion store (madvira.com) with collection browsing, cart, OTP auth, Razorpay checkout, and Shiprocket fulfillment. React storefront + Node/Express APIs on MongoDB, Dockerized on VPS.',
     architecture:
       'React frontend + Node/Express REST on MongoDB. Razorpay + Shiprocket webhook sync for payments and delivery. OTP via SMTP + Fast2SMS. Docker deploy on Hostinger VPS.',
     techStack: [
@@ -368,6 +370,33 @@ export const PROJECTS: Project[] = [
     demoUrl: 'https://madvira.com/',
     coverGradient: 'linear-gradient(145deg, #2a2218 0%, #14100c 50%, #3a3024 100%)',
     coverImage: '/projects/madvira.png',
+    featured: true,
+  },
+  {
+    id: 'tarun-ai-os',
+    title: 'Tarun AI OS',
+    tagline: 'This portfolio — desktop-inspired UI with a Gemini chat backend.',
+    overview:
+      'The site you are on: a Vite + React portfolio styled like a personal OS (taskbar, panels, skill graph). Includes a “Talk to AI” assistant backed by a separate Vercel serverless API (Gemini), live GitHub stats, and section-level motion.',
+    architecture:
+      'React/Vite frontend on Vercel → stateless portfolio-ai-api (/api/chat, /api/github/stats). Chat uses Gemini with a locked portfolio knowledge base; CORS scoped to the site origins. Skills/projects are interactive graphs and compact detail panels.',
+    techStack: [
+      'React.js',
+      'TypeScript',
+      'Vite',
+      'Tailwind CSS',
+      'Framer Motion',
+      'Gemini',
+      'Vercel',
+    ],
+    challenges: [
+      'Keeping chat grounded to portfolio facts (system prompt + CORS)',
+      'Splitting frontend and API deploys so Git root doesn’t wipe /api',
+      'Desktop-OS UX that still works as a normal scroll portfolio on mobile',
+    ],
+    demoUrl: 'https://my-portfolio-tarun.vercel.app/',
+    githubUrl: 'https://github.com/TarunChowdala/Tarun-os-portfolio',
+    coverGradient: 'linear-gradient(145deg, #12181f 0%, #0a0e14 48%, #1a2838 100%)',
     featured: true,
   },
 ]
@@ -501,6 +530,27 @@ export const PROJECT_ARCHITECTURES: ProjectArchitecture[] = [
       { from: 'md-api', to: 'md-docker' },
     ],
   },
+  {
+    id: 'tarun-ai-os',
+    label: 'Tarun AI OS',
+    summary:
+      'Vite/React portfolio → Vercel serverless API (Gemini chat + GitHub stats).',
+    demoUrl: 'https://my-portfolio-tarun.vercel.app/',
+    githubUrl: 'https://github.com/TarunChowdala/Tarun-os-portfolio',
+    nodes: [
+      { id: 'os-ui', label: 'React/Vite', description: 'Portfolio UI on Vercel', x: 14, y: 50 },
+      { id: 'os-api', label: 'Serverless', description: 'portfolio-ai-api', x: 42, y: 50 },
+      { id: 'os-gemini', label: 'Gemini', description: 'Grounded chat replies', x: 68, y: 28 },
+      { id: 'os-gh', label: 'GitHub API', description: 'Live stats endpoint', x: 68, y: 72 },
+      { id: 'os-cors', label: 'CORS', description: 'Origin-locked access', x: 88, y: 50 },
+    ],
+    edges: [
+      { from: 'os-ui', to: 'os-api' },
+      { from: 'os-api', to: 'os-gemini' },
+      { from: 'os-api', to: 'os-gh' },
+      { from: 'os-api', to: 'os-cors' },
+    ],
+  },
 ]
 
 export const GITHUB_STATS: GitHubStat[] = [
@@ -527,9 +577,9 @@ export const SOCIALS: SocialLink[] = [
 /** Static chip replies — no LLM. Keys match ChatPanel suggestion cmds. */
 export const AI_MOCK_REPLIES: Record<string, string> = {
   default:
-    "I'm Tarun Chowdala's portfolio assistant. Ask about ContactSwing, Scoutn, SmartChat, Madvira, or his React/FastAPI/GenAI stack — or type a custom question.",
+    "I'm Tarun Chowdala's portfolio assistant. Ask about ContactSwing, Scoutn, SmartChat, Madvira, Tarun AI OS (this site), or his React/FastAPI/GenAI stack — or type a custom question.",
   projects:
-    'Highlights worth opening:\n\n- **ContactSwing** — AI SaaS at Swara Tech (React + FastAPI/Node, production)\n- **Scoutn** — live agentic search ([scoutn.streamlit.app](https://scoutn.streamlit.app))\n- **SmartChat AI** — Gemini chat / RAG / resume ([smartchataiapp.vercel.app](https://smartchataiapp.vercel.app))\n- **Madvira** — fashion storefront ([madvira.com](https://madvira.com))\n\nScroll to **Projects** for demos and architecture tabs.',
+    'Highlights worth opening:\n\n- **ContactSwing** — AI SaaS at Swara Tech (React + FastAPI/Node, production)\n- **Scoutn** — live agentic search ([search-agent-open.streamlit.app](https://search-agent-open.streamlit.app))\n- **SmartChat AI** — Gemini chat / RAG / resume ([smartchataiapp.vercel.app](https://smartchataiapp.vercel.app))\n- **Madvira** — fashion storefront ([madvira.com](https://madvira.com))\n- **Tarun AI OS** — this portfolio + Gemini chat API ([my-portfolio-tarun.vercel.app](https://my-portfolio-tarun.vercel.app))\n\nScroll to **Projects** for demos and architecture tabs.',
   skills:
     'Core stack:\n\n- **Frontend:** React.js, TypeScript, Tailwind\n- **Backend:** FastAPI, Node.js/Express\n- **Data:** PostgreSQL, Redis, MongoDB\n- **AI:** LangChain, LangGraph, FAISS, Gemini/Groq\n- **Ops:** Docker, GCP\n\nThe **Skills** graph on the site maps how these connect.',
   stack:
@@ -537,7 +587,7 @@ export const AI_MOCK_REPLIES: Record<string, string> = {
   contact:
     'Reach Tarun directly:\n\n- **Email:** [tarunchowdala300@gmail.com](mailto:tarunchowdala300@gmail.com)\n- **Phone:** +91 7989685788\n- **Location:** Srikakulam, Andhra Pradesh\n- **GitHub / LinkedIn:** links in the Contact section\n\nOpen to full-time roles and freelance.',
   architecture:
-    'System shapes by product:\n\n- **SmartChat** — React → FastAPI → Firebase / Gemini / FAISS\n- **Scoutn** — Streamlit → LangGraph → Groq\n- **Madvira** — React → Node → Mongo + Razorpay / Shiprocket\n\nOpen a project’s **Architecture** tab for the live diagram.',
+    'System shapes by product:\n\n- **SmartChat** — React → FastAPI → Firebase / Gemini / FAISS\n- **Scoutn** — Streamlit → LangGraph → Groq\n- **Madvira** — React → Node → Mongo + Razorpay / Shiprocket\n- **Tarun AI OS** — React/Vite → Vercel API → Gemini + GitHub stats\n\nOpen a project’s **Architecture** tab for the live diagram.',
   experience:
     '2+ years shipping production web apps.\n\n- **Swara Tech** — Full Stack on ContactSwing (Sep 2024–2025)\n- **Instedia** — Frontend Intern (May–Jun 2024)\n\nNow open to full-time roles and freelance.',
 }
